@@ -1,0 +1,87 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>  
+  <title>장바구니 상세-> 결제</title>
+</head>
+<body>
+  <div id="app">
+    <h1>키오스크 장바구니 상세-> 결제</h1>
+    <form action="{%url 'cart' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+    <!--<label><input type="checkbox" v-model="myCheck">체크박스의 상태는 {{myCheck}}</label><br>-->
+    <label><input type="checkbox" value="햄버거" v-model="myChecks">햄버거
+    <button>삭제</button><br>
+    
+    
+    <br>
+    <label><input type="checkbox" value="김밥" v-model="myChecks">김밥 
+    <input v-model.number = "mygimbab" type="number"> 가격 {{2000 * mygimbab}} \</label><br>
+    <label><input type="checkbox" value="유부초밥" v-model="myChecks">유부초밥
+    <input v-model.number = "myYubu" type="number"> 가격 {{3000 * myYubu}}</label><br>
+    
+    <label>옵션 선택</label><br>
+    <label><input type="radio" value="COLA" v-model="picked">콜라</label><br>
+    <!--v-model="picked"과 동일한 프로퍼티명을 지정하면 하나의 그룹으로 묶이게 된다.-->
+    <label><input type="radio" value="FANTA" v-model="picked">환타</label><br>
+
+    <label><input type="radio" value="MIRINDA" v-model="picked">미린다</label><p>
+    {{picked}}이 선택됨<br>
+
+    선택한 음식은 {{myChecks}}
+    <br>
+    선택한 음식의 가격은 {{1000* myhamburger + 2000*mygimbab + 3000*myYubu}}\ <br>
+    <label><input type="checkbox" v-model="myAgree"> 결제하기</label>
+    
+    <button v-bind:disabled="myAgree==false" onClick="location.href='결제완료.html'">결제</button><br>
+
+    <label><input type="checkbox" v-model="mydisAgree"> 결제취소</label>
+
+    <button v-bind:disabled="mydisAgree==false">결제취소</button><br>
+    <!--myAgree값이 false일 경우 disabled상태로 하기-->
+    </form>
+  <script>
+
+    new Vue({
+
+      el : '#app',
+      data : {
+
+        myCheck : true
+        ,
+        myChecks: []
+        //myChecks값을 배열로 초기화
+        ,
+        myAgree : false,
+
+        picked : ''
+        //data:에 데이터가 입력 가능한 picked를 준비하고 값을 red로 입력하면 라디오버튼에 "적" 이 선택된 상태로 시작된다.
+        ,
+        
+        fileName: '',
+
+        myColor: '',
+
+        myColor2: [],
+
+        myText: '',
+
+        myhamburger: 0,
+
+        myHamAgree : false,
+
+        mydisAgree : false, 
+
+        mygimbab: 0,
+
+        myYubu: 0
+      }
+    })
+  </script>
+</body>
+</html>
